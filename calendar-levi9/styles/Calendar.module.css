@@ -1,0 +1,28 @@
+.month {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  color: #004a4a;
+}
+.table {
+  color: #004a4a;
+}
+.button {
+  background-color: #8b0000;
+  border-color: #8b0000;
+  border-radius: 10px;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 5px;
+  margin: 10px;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  color: #004a4a;
+  font-family: cursive;
+}

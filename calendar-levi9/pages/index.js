@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <div className={styles.background}>
-        <h1 className={styles.planer}> Planer</h1>
+        {/* <h1 className={styles.planer}> Planer</h1> */}
         <App></App>
       </div>
     </>

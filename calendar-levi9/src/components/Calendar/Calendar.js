@@ -22,12 +22,21 @@ const Calendar = () => {
       <div>
         <p className={styles.month}>
           {" "}
+          Planer:{" "}
           {`${
             monthNames[selectedDate.getMonth()]
           } - ${selectedDate.getFullYear()}`}
         </p>
+        <div className={styles.center}>
+          <button className={styles.button} onClick={getPrevMonth}>
+            Prev
+          </button>
+          <button className={styles.button} onClick={getNextMonth}>
+            Next
+          </button>
+        </div>
         <table className={styles.table}>
-          <thead>
+          <thead className={styles.table_header}>
             <tr>
               {daysShort.map((day) => (
                 <th key={day}>{day}</th>
@@ -37,12 +46,12 @@ const Calendar = () => {
           <tbody>
             {Object.values(calendarRows).map((cols) => {
               return (
-                <tr key={cols[0].date}>
+                <tr key={cols[0].date} className={styles.tr}>
                   {cols.map((col) =>
                     col.date === todayFormatted ? (
                       <td
                         key={col.date}
-                        className={`${col.classes} today`}
+                        className={styles.td}
                         onClick={() => dateClickHandler(col.date)}
                       >
                         {col.value}
@@ -50,7 +59,7 @@ const Calendar = () => {
                     ) : (
                       <td
                         key={col.date}
-                        className={col.classes}
+                        className={styles.td}
                         onClick={() => dateClickHandler(col.date)}
                       >
                         {col.value}
@@ -62,14 +71,6 @@ const Calendar = () => {
             })}
           </tbody>
         </table>
-        <div className={styles.center}>
-          <button className={styles.button} onClick={getPrevMonth}>
-            Prev
-          </button>
-          <button className={styles.button} onClick={getNextMonth}>
-            Next
-          </button>
-        </div>
       </div>
     </>
   );

@@ -18,6 +18,8 @@ const Form = (props) => {
     async function getParticipants() {
       const res = await fetch("/participants");
       const data = await res.json();
+      console.log(data);
+      console.log(data.map((u) => ({ label: u.name, value: u.id })));
       setParticipants(data.map((u) => ({ label: u.name, value: u.id })));
     }
     getParticipants();
@@ -30,16 +32,15 @@ const Form = (props) => {
     const description = event.target.description.value;
     const time = event.target.time.value;
     const participants = selected.map((x) => x.value);
-    console.log(selected);
+    const date = props.date;
+    //console.log(selected);
     const res = await fetch("/event", {
       body: JSON.stringify({
         title,
         description,
         time,
         participants,
-        day,
-        month,
-        year,
+        date,
       }),
       headers: {
         "Content-Type": "application/json",

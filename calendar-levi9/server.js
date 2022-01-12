@@ -2,42 +2,8 @@ const express = require("express");
 const next = require("next");
 const bodyparser = require("body-parser");
 
-const dbEvents = [
-  {
-    id: 1,
-    title: "e1",
-    description: "prvi dogadjaj",
-    day: 2,
-    month: 11,
-    year: 2021,
-  },
-  {
-    id: 2,
-    title: "e2",
-    description: "drugi dogadjaj",
-    day: 5,
-    month: 11,
-    year: 2021,
-  },
-  {
-    id: 3,
-    title: "e3",
-    description: "treci dogadjaj",
-    day: 2,
-    month: 11,
-    year: 2021,
-  },
-  {
-    id: 4,
-    title: "e4",
-    description: "cetvrti dogadjaj",
-    day: 21,
-    month: 11,
-    year: 2021,
-  },
-];
-
 const participants = require("./participantsBase.json").Participants;
+const events = require("./eventBase.json").Events;
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -49,12 +15,7 @@ app.prepare().then(() => {
   server.use(bodyparser.json());
 
   server.get("/events", (req, res) => {
-    res.send(
-      dbEvents.filter(
-        (event) =>
-          event.month == req.query.month && event.year == req.query.year
-      )
-    );
+    res.send(events);
   });
 
   server.get("/participants", (req, res) => {

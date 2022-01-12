@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import useCalendar from "../../hooks/useCalendar";
 import Form from "../Form";
@@ -14,13 +14,34 @@ const Calendar = () => {
     getNextMonth,
     getPrevMonth,
   } = useCalendar();
+
   const router = useRouter();
   const dateClickHandler = (date) => {
     console.log(date);
   };
   const [show, setShow] = useState(false);
+  const [events, setEvents] = useState([]);
   const [date, setDate] = useState("1");
+  const test = [];
 
+  useEffect(() => {
+    async function getEvents() {
+      const res = await fetch("/events");
+      const data = await res.json();
+      console.log(data);
+      setEvents([...data]);
+    }
+    getEvents();
+  }, []);
+  const checkForEvent = (date) => {
+    const text = "";
+    for (let ev of events) {
+      if (ev.date == date) {
+        text = text + ev.title;
+      }
+    }
+    return text;
+  };
   return (
     <>
       <div>
@@ -64,7 +85,7 @@ const Calendar = () => {
                         >
                           {col.value}.
                         </div>
-                        <div></div>
+                        <div> {checkForEvent(col.date)}</div>
                       </td>
                     ) : (
                       <td
@@ -77,7 +98,8 @@ const Calendar = () => {
                           onClick={() => setDate(col.date)}
                         >
                           {col.value}.
-                        </div>{" "}
+                        </div>
+                        <div> {checkForEvent(col.date)}</div>
                       </td>
                     )
                   )}
@@ -90,6 +112,7 @@ const Calendar = () => {
       <div className={styles.form}>
         <Form show={show} date={date} onClose={() => setShow(false)} />
       </div>
+      <div></div>
     </>
   );
 };

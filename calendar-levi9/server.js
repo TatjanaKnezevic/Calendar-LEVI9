@@ -37,11 +37,7 @@ const dbEvents = [
   },
 ];
 
-const participants = [
-  { name: "Divna Micic" },
-  { name: "Aeksandar Sarbajic" },
-  { name: "Svetih 5" },
-];
+const participants = require("./participantsBase.json").Participants;
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";

@@ -1,5 +1,7 @@
-import React from "react";
+import { React, useState } from "react";
+import { useRouter } from "next/router";
 import useCalendar from "../../hooks/useCalendar";
+import Form from "../Form";
 import styles from "../../../styles/Calendar.module.css";
 
 const Calendar = () => {
@@ -12,10 +14,12 @@ const Calendar = () => {
     getNextMonth,
     getPrevMonth,
   } = useCalendar();
-
+  const router = useRouter();
   const dateClickHandler = (date) => {
     console.log(date);
   };
+  const [show, setShow] = useState(false);
+  const [date, setDate] = useState("1");
 
   return (
     <>
@@ -54,7 +58,13 @@ const Calendar = () => {
                         className={styles.td}
                         onClick={() => dateClickHandler(col.date)}
                       >
-                        {col.value}
+                        <div
+                          onDoubleClick={() => setShow(true)}
+                          onClick={() => setDate(col.date)}
+                        >
+                          {col.value}.
+                        </div>
+                        <div></div>
                       </td>
                     ) : (
                       <td
@@ -62,7 +72,12 @@ const Calendar = () => {
                         className={styles.td}
                         onClick={() => dateClickHandler(col.date)}
                       >
-                        {col.value}
+                        <div
+                          onDoubleClick={() => setShow(true)}
+                          onClick={() => setDate(col.date)}
+                        >
+                          {col.value}.
+                        </div>{" "}
                       </td>
                     )
                   )}
@@ -71,6 +86,9 @@ const Calendar = () => {
             })}
           </tbody>
         </table>
+      </div>
+      <div className={styles.form}>
+        <Form show={show} date={date} onClose={() => setShow(false)} />
       </div>
     </>
   );

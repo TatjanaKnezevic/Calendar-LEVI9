@@ -22,7 +22,6 @@ const Calendar = () => {
   const [show, setShow] = useState(false);
   const [events, setEvents] = useState([]);
   const [date, setDate] = useState("1");
-  const test = [];
 
   useEffect(() => {
     async function getEvents() {
@@ -33,14 +32,14 @@ const Calendar = () => {
     }
     getEvents();
   }, []);
-  const checkForEvent = (date) => {
-    const text = "";
+  const checkForEvents = (date) => {
+    const event_list = [];
     for (let ev of events) {
       if (ev.date == date) {
-        text = text + ev.title;
+        event_list.push(ev.title);
       }
     }
-    return text;
+    return event_list;
   };
   return (
     <>
@@ -85,7 +84,11 @@ const Calendar = () => {
                         >
                           {col.value}.
                         </div>
-                        <div> {checkForEvent(col.date)}</div>
+                        <div>
+                          {checkForEvents(col.date).map((ev) => {
+                            return <p>{ev}</p>;
+                          })}
+                        </div>
                       </td>
                     ) : (
                       <td
@@ -99,7 +102,11 @@ const Calendar = () => {
                         >
                           {col.value}.
                         </div>
-                        <div> {checkForEvent(col.date)}</div>
+                        <div>
+                          {checkForEvents(col.date).map((ev) => {
+                            return <p>{ev}</p>;
+                          })}
+                        </div>
                       </td>
                     )
                   )}

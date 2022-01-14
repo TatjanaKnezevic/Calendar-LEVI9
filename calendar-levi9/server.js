@@ -32,6 +32,17 @@ app.prepare().then(() => {
     else res.send(participants);
   });
 
+  server.post("/deleteEvent", (req, res) => {
+    if (req.body.id != 0) {
+      const index = events.map((ev) => ev.id.toString()).indexOf(req.body.id);
+      if (index != -1) {
+        events.splice(index, 1);
+        fs.writeFile("./eventBase.json", JSON.stringify(events), "utf8");
+      }
+    }
+    res.json(req.body);
+  });
+
   server.post("/event", (req, res) => {
     events.push(req.body);
     res.json(req.body);

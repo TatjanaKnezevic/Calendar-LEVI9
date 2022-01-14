@@ -35,7 +35,7 @@ const Calendar = () => {
     async function getEvents() {
       const res = await fetch("/events");
       const data = await res.json();
-      console.log(data);
+      //console.log(data);
       setEvents([...data]);
     }
     getEvents();
@@ -81,7 +81,7 @@ const Calendar = () => {
                 <tr key={cols[0].date} className={styles.tr}>
                   {cols.map((col) =>
                     col.date === todayFormatted ? (
-                      <td key={col.date} className={styles.td}>
+                      <td key={col.date} className={styles.tdToday}>
                         <div
                           onDoubleClick={() => setShow(true)}
                           onClick={() => dateClickHandler(col.date)}
@@ -91,13 +91,11 @@ const Calendar = () => {
                         <div>
                           {checkForEvents(col.date).map((ev) => {
                             return (
-                              <Link
-                                href={`/events/${ev.id}`}
-                                key={ev.title + ev.date}
-                              >
+                              <Link href={`/events/${ev.id}`} key={ev.id}>
                                 <p
+                                  className={styles.link}
                                   onClick={() => router.push("/events")}
-                                  key={"p" + ev.title + ev.date}
+                                  key={"p" + ev.id}
                                 >
                                   {ev.title}
                                 </p>
@@ -117,13 +115,11 @@ const Calendar = () => {
                         <div>
                           {checkForEvents(col.date).map((ev) => {
                             return (
-                              <Link
-                                href={`/events/${ev.id}`}
-                                key={ev.title + ev.date}
-                              >
+                              <Link href={`/events/${ev.id}`} key={ev.id}>
                                 <p
+                                  className={styles.link}
                                   onClick={() => router.push("/events")}
-                                  key={"p" + ev.title + ev.date}
+                                  key={"p" + ev.id}
                                 >
                                   {ev.title}
                                 </p>

@@ -24,8 +24,16 @@ const Events = () => {
     }
     return event_list;
   };
-  const deleteEvent = () => {
-    console.log("obrisati");
+  const deleteEvent = async () => {
+    const res = await fetch("/deleteEvent", {
+      body: JSON.stringify({ id }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+    const result = await res.json();
+
     router.back();
   };
 
@@ -38,14 +46,20 @@ const Events = () => {
               key={"div" + ev.title + ev.date}
               className={(styles.background, styles.planer)}
             >
-              <p>Name of event: {ev.title}</p>
-              <p>
-                Date and time of event: {ev.date} {ev.time}
+              <p className={styles.name}>Name of event: {ev.title}</p>
+              <p className={styles.p}>
+                Date and time of event: {ev.date} at {ev.time}
               </p>
-              <p>Description of event: {ev.description}</p>
+              <div className={styles.p}>
+                Description of event:{" "}
+                <p className={styles.desc}>{ev.description}</p>
+              </div>
               <div>Participants: {ev.participants.join(", ")}</div>
               <button className={styles.button} onClick={() => deleteEvent()}>
                 Delete event
+              </button>
+              <button className={styles.button} onClick={() => router.back()}>
+                Back
               </button>
             </div>
           );

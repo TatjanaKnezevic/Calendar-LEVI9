@@ -5,22 +5,38 @@
     "description": "Ispit iz ispita razvoja softvera",
     "date": "12-1-2022",
     "time": "4pm",
-    "participants": ["Aeksandar Sarbajic"]
+    "participants": ["Aleksandar Sarbajic"]
   },
   {
-    "id": 7,
+    "id": 2,
     "title": "Rodjendan Tanja",
     "description": "Tanjin izmsiljen rodjendan je na danasnji dan",
     "date": "30-12-2021",
     "time": "4pm",
-    "participants": ["Aeksandar Sarbajic", "Porodica", "Drugarice"]
+    "participants": ["Aleksandar Sarbajic", "Porodica", "Drugarice"]
   },
   {
-    "id": 9,
+    "id": 3,
     "title": "Proslava nove godine",
     "description": "Proslava nove godine sa drugaricama",
     "date": "1-1-2022",
     "time": "1 am",
     "participants": ["Drugarice"]
+  },
+  {
+    "id": 4,
+    "title": "Ispit iz PPGR",
+    "description": "Ispit iz PPGR je na danasnji dan",
+    "date": "21-1-2022",
+    "time": "5pm",
+    "participants": ["Aleksandar Sarbajic"]
+  },
+  {
+    "id": 5,
+    "title": "Rok za Levi9",
+    "description": "Krajnji rok za prijavu za odbranu levi9 strucnog kursa",
+    "date": "20-1-2022",
+    "time": "8pm",
+    "participants": ["Aleksandar Sarbajic"]
   }
 ]

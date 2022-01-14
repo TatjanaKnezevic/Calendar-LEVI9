@@ -7,8 +7,6 @@ const Form = (props) => {
     return null;
   }
 
-  const [reload, setReload] = useState(false);
-
   const [participants, setParticipants] = useState([]);
   const [selected, setSelected] = useState([]);
 
@@ -19,12 +17,11 @@ const Form = (props) => {
       setParticipants(data.map((u) => ({ label: u.name, value: u.name })));
     }
     getParticipants();
-  }, [reload]);
+  }, []);
 
   const addEvent = async (event) => {
     event.preventDefault();
     const id = props.id;
-    setReload(true);
     const title = event.target.title.value;
     const description = event.target.description.value;
     const time = event.target.time.value;
@@ -114,7 +111,6 @@ const Form = (props) => {
                   Close
                 </button>
               </div>
-              <div>Close the form to update calendar</div>
             </form>
           </div>
         </div>

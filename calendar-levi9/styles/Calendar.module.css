@@ -53,7 +53,21 @@
   border: 2px solid;
   font-weight: bold;
 }
+.tdToday {
+  width: 10%;
+  border: 2px solid;
+  font-weight: bold;
+  background-color: #00a5a5;
+}
 .form {
   padding: 20px;
   margin: 20px;
+}
+.link:hover {
+  background-color: #8b0000;
+  border-radius: 10px;
+  color: white;
+}
+.link {
+  padding: 5px;
 }

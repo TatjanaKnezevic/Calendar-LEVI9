@@ -1,9 +1,10 @@
 const express = require("express");
 const next = require("next");
 const bodyparser = require("body-parser");
+const fs = require("fs");
 
 const participants = require("./participantsBase.json").Participants;
-const events = require("./eventBase.json").Events;
+const events = require("./eventBase.json");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -17,6 +18,9 @@ app.prepare().then(() => {
   server.get("/events", (req, res) => {
     res.send(events);
   });
+  server.get("/eventById/:id", (req, res) => {
+    res.send(events.filter((event) => event.id == req.params.id));
+  });
 
   server.get("/participants", (req, res) => {
     if (req.query.search)
@@ -29,10 +33,9 @@ app.prepare().then(() => {
   });
 
   server.post("/event", (req, res) => {
-    console.log(req.body);
-    dbEvents.push(req.body);
-    console.log(dbEvents);
+    events.push(req.body);
     res.json(req.body);
+    fs.writeFile("./eventBase.json", JSON.stringify(events), "utf8");
   });
 
   server.all("*", (req, res) => {

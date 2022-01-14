@@ -10,6 +10,8 @@ const Form = (props) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [time, setTime] = useState("");
+  const [eventNum, setEventsNum] = useState(0);
+  const [reload, setReload] = useState(false);
 
   const [participants, setParticipants] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -18,29 +20,41 @@ const Form = (props) => {
     async function getParticipants() {
       const res = await fetch("/participants");
       const data = await res.json();
-      console.log(data);
-      console.log(data.map((u) => ({ label: u.name, value: u.id })));
-      setParticipants(data.map((u) => ({ label: u.name, value: u.id })));
+      setParticipants(data.map((u) => ({ label: u.name, value: u.name })));
     }
+    async function getEventsNum() {
+      const res = await fetch("/events");
+      const data = await res.json();
+      setEventsNum(data.length);
+    }
+    getEventsNum();
     getParticipants();
-  }, []);
+  }, [reload]);
+
+  useEffect(() => {
+    if (close) {
+      console.log("bye");
+      props.onClose;
+    }
+  }, [close]);
 
   const addEvent = async (event) => {
     event.preventDefault();
-
+    const id = eventNum + 1;
+    setReload(true);
     const title = event.target.title.value;
     const description = event.target.description.value;
     const time = event.target.time.value;
     const participants = selected.map((x) => x.value);
     const date = props.date;
-    //console.log(selected);
     const res = await fetch("/event", {
       body: JSON.stringify({
+        id,
         title,
         description,
+        date,
         time,
         participants,
-        date,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -49,8 +63,6 @@ const Form = (props) => {
     });
 
     const result = await res.json();
-    console.log(result);
-    onSuccess(result);
   };
 
   return (
@@ -65,7 +77,11 @@ const Form = (props) => {
             <h1>Add new event</h1>
           </div>
           <div>
-            <form>
+            <form
+              className="ui form"
+              onSubmitCapture={addEvent}
+              onSubmit={props.onClose}
+            >
               <br />
               <div>
                 <label>Title: </label>
@@ -111,20 +127,16 @@ const Form = (props) => {
               </div>
               <br />
               <div>
-                <button
-                  type="submit"
-                  className={styles.button}
-                  onClick={props.onClose}
-                >
+                <button type="submit" className={styles.button}>
                   Add event
                 </button>
                 <button className={styles.button} onClick={props.onClose}>
                   Close
                 </button>
               </div>
+              <div>Close the form to update calendar</div>
             </form>
           </div>
-          <div className="modal-footer"></div>
         </div>
       </div>
     </>

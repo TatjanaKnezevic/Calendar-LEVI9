@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useCalendar from "../../hooks/useCalendar";
 import Form from "../Form";
 import styles from "../../../styles/Calendar.module.css";
+import Link from "next/link";
 
 const Calendar = () => {
   const {
@@ -31,12 +32,12 @@ const Calendar = () => {
       setEvents([...data]);
     }
     getEvents();
-  }, []);
+  }, [show]);
   const checkForEvents = (date) => {
     const event_list = [];
     for (let ev of events) {
       if (ev.date == date) {
-        event_list.push(ev.title);
+        event_list.push(ev);
       }
     }
     return event_list;
@@ -86,7 +87,19 @@ const Calendar = () => {
                         </div>
                         <div>
                           {checkForEvents(col.date).map((ev) => {
-                            return <p>{ev}</p>;
+                            return (
+                              <Link
+                                href={`/events/${ev.id}`}
+                                key={ev.title + ev.date}
+                              >
+                                <p
+                                  onClick={() => router.push("/events")}
+                                  key={"p" + ev.title + ev.date}
+                                >
+                                  {ev.title}
+                                </p>
+                              </Link>
+                            );
                           })}
                         </div>
                       </td>
@@ -104,7 +117,19 @@ const Calendar = () => {
                         </div>
                         <div>
                           {checkForEvents(col.date).map((ev) => {
-                            return <p>{ev}</p>;
+                            return (
+                              <Link
+                                href={`/events/${ev.id}`}
+                                key={ev.title + ev.date}
+                              >
+                                <p
+                                  onClick={() => router.push("/events")}
+                                  key={"p" + ev.title + ev.date}
+                                >
+                                  {ev.title}
+                                </p>
+                              </Link>
+                            );
                           })}
                         </div>
                       </td>
@@ -117,7 +142,13 @@ const Calendar = () => {
         </table>
       </div>
       <div className={styles.form}>
-        <Form show={show} date={date} onClose={() => setShow(false)} />
+        <Form
+          show={show}
+          date={date}
+          onClose={() => {
+            setShow(false);
+          }}
+        />
       </div>
       <div></div>
     </>

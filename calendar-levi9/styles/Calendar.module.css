@@ -38,13 +38,14 @@
   font-family: cursive;
 }
 .tabel_el {
-  height: 2000px;
+  height: 1000px;
 }
 
 .tr {
   width: 10%;
   border: 2px solid;
   font-weight: bold;
+  height: 100px;
 }
 
 .td {

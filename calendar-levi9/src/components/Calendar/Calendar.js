@@ -16,13 +16,20 @@ const Calendar = () => {
     getPrevMonth,
   } = useCalendar();
 
-  const router = useRouter();
   const dateClickHandler = (date) => {
-    console.log(date);
+    setDate(date);
+    setId(
+      events[events.length - 1].id == undefined
+        ? 1
+        : events[events.length - 1].id + 1
+    );
   };
+
+  const router = useRouter();
   const [show, setShow] = useState(false);
   const [events, setEvents] = useState([]);
   const [date, setDate] = useState("1");
+  const [id, setId] = useState();
 
   useEffect(() => {
     async function getEvents() {
@@ -74,14 +81,10 @@ const Calendar = () => {
                 <tr key={cols[0].date} className={styles.tr}>
                   {cols.map((col) =>
                     col.date === todayFormatted ? (
-                      <td
-                        key={col.date}
-                        className={styles.td}
-                        onClick={() => dateClickHandler(col.date)}
-                      >
+                      <td key={col.date} className={styles.td}>
                         <div
                           onDoubleClick={() => setShow(true)}
-                          onClick={() => setDate(col.date)}
+                          onClick={() => dateClickHandler(col.date)}
                         >
                           {col.value}.
                         </div>
@@ -104,14 +107,10 @@ const Calendar = () => {
                         </div>
                       </td>
                     ) : (
-                      <td
-                        key={col.date}
-                        className={styles.td}
-                        onClick={() => dateClickHandler(col.date)}
-                      >
+                      <td key={col.date} className={styles.td}>
                         <div
                           onDoubleClick={() => setShow(true)}
-                          onClick={() => setDate(col.date)}
+                          onClick={() => dateClickHandler(col.date)}
                         >
                           {col.value}.
                         </div>
@@ -145,6 +144,7 @@ const Calendar = () => {
         <Form
           show={show}
           date={date}
+          id={id}
           onClose={() => {
             setShow(false);
           }}

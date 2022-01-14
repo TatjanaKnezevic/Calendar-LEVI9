@@ -7,10 +7,6 @@ const Form = (props) => {
     return null;
   }
 
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [time, setTime] = useState("");
-  const [eventNum, setEventsNum] = useState(0);
   const [reload, setReload] = useState(false);
 
   const [participants, setParticipants] = useState([]);
@@ -22,25 +18,12 @@ const Form = (props) => {
       const data = await res.json();
       setParticipants(data.map((u) => ({ label: u.name, value: u.name })));
     }
-    async function getEventsNum() {
-      const res = await fetch("/events");
-      const data = await res.json();
-      setEventsNum(data.length);
-    }
-    getEventsNum();
     getParticipants();
   }, [reload]);
 
-  useEffect(() => {
-    if (close) {
-      console.log("bye");
-      props.onClose;
-    }
-  }, [close]);
-
   const addEvent = async (event) => {
     event.preventDefault();
-    const id = eventNum + 1;
+    const id = props.id;
     setReload(true);
     const title = event.target.title.value;
     const description = event.target.description.value;
@@ -90,7 +73,6 @@ const Form = (props) => {
                   placeholder="Type title here..."
                   name="title"
                   id="title"
-                  onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
               <br />
@@ -101,7 +83,6 @@ const Form = (props) => {
                   placeholder="Type description here..."
                   name="description"
                   id="description"
-                  onChange={(e) => setDesc(e.target.value)}
                 ></textarea>
               </div>
               <br />
@@ -112,7 +93,6 @@ const Form = (props) => {
                   placeholder={props.date}
                   name="time"
                   id="time"
-                  onChange={(e) => setTime(e.target.value)}
                 />
               </div>
               <br />

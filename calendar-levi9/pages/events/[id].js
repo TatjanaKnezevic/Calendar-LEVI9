@@ -6,22 +6,27 @@ const Events = () => {
   const router = useRouter();
   const { id } = router.query;
   const [ev, setEvent] = useState([]);
-  const [participants, setParticipants] = useState([]);
 
   useEffect(() => {
     async function getEvents() {
-      const res = await fetch(`/eventById/9`);
-      const data = await res.json();
-      setEvent([...data]);
+      if (id != undefined) {
+        const res = await fetch(`/eventById/${id.toString()}`);
+        const data = await res.json();
+        setEvent([...data]);
+      }
     }
     getEvents();
-  }, []);
+  }, [id]);
   const checkForEvents = () => {
     const event_list = [];
     for (let event of ev) {
       event_list.push(event);
     }
     return event_list;
+  };
+  const deleteEvent = () => {
+    console.log("obrisati");
+    router.back();
   };
 
   return (
@@ -38,8 +43,10 @@ const Events = () => {
                 Date and time of event: {ev.date} {ev.time}
               </p>
               <p>Description of event: {ev.description}</p>
-              <div>Participants: {ev.participants}</div>
-              <button className={styles.button}> Delete event</button>
+              <div>Participants: {ev.participants.join(", ")}</div>
+              <button className={styles.button} onClick={() => deleteEvent()}>
+                Delete event
+              </button>
             </div>
           );
         })}

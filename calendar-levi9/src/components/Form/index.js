@@ -93,6 +93,7 @@ const Form = (props) => {
                   placeholder="Type title here..."
                   name="title"
                   id="title"
+                  value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
@@ -107,6 +108,7 @@ const Form = (props) => {
                   placeholder="Type description here..."
                   name="description"
                   id="description"
+                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
               </div>
@@ -119,6 +121,7 @@ const Form = (props) => {
                   placeholder={props.date}
                   name="time"
                   id="time"
+                  value={time}
                   onChange={(e) => setTime(e.target.value)}
                 />
               </div>

@@ -1,9 +1,10 @@
 const express = require("express");
+//const mongo = require("/usr/bin/mongo");
 const next = require("next");
 const bodyparser = require("body-parser");
 const fs = require("fs");
 
-const participants = require("./participantsBase.json").Participants;
+const participants = require("./participantsBase.json");
 const events = require("./eventBase.json");
 
 const port = parseInt(process.env.PORT, 10) || 3000;

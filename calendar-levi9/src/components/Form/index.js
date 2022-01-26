@@ -22,8 +22,30 @@ const Form = (props) => {
     getParticipants();
   }, []);
 
+  const validateText = (text) => !!text;
+  const validateTime = (time) => {
+    const expression = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    const regex = new RegExp(expression);
+
+    if (!time.match(regex)) {
+      return false;
+    }
+    return true;
+  };
+
   const addEvent = async (event) => {
     event.preventDefault();
+
+    if (!validateText(title)) {
+      return;
+    }
+    if (!validateText(description)) {
+      return;
+    }
+    if (!validateTime(time)) {
+      return;
+    }
+
     const id = props.id;
     const participants = selected.map((x) => x.value);
     const date = props.date;
@@ -47,7 +69,7 @@ const Form = (props) => {
 
   return (
     <>
-      <div onClick={props.onClose}>
+      <div onClick={props.onClose} className={styles.form}>
         <div
           onClick={(e) => {
             e.stopPropagation();
@@ -66,6 +88,7 @@ const Form = (props) => {
               <div>
                 <label>Title: </label>
                 <input
+                  className={`${!validateText(title) ? styles.error : ""}`}
                   type="text"
                   placeholder="Type title here..."
                   name="title"
@@ -77,6 +100,9 @@ const Form = (props) => {
               <div>
                 <label>Description: </label>
                 <textarea
+                  className={`${
+                    !validateText(description) ? styles.error : ""
+                  }`}
                   type="text"
                   placeholder="Type description here..."
                   name="description"
@@ -88,6 +114,7 @@ const Form = (props) => {
               <div>
                 <label>Time: </label>
                 <input
+                  className={`${!validateTime(time) ? styles.error : ""}`}
                   type="text"
                   placeholder={props.date}
                   name="time"

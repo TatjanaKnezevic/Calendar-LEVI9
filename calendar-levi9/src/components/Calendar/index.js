@@ -156,7 +156,6 @@ const Calendar = () => {
     async function getEvents() {
       const res = await fetch("/events");
       const data = await res.json();
-      //console.log(data);
       setEvents([...data]);
     }
     getEvents();

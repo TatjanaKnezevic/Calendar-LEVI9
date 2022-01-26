@@ -10,3 +10,14 @@
   padding: 5px;
   margin: 10px;
 }
+.error {
+  background-color: #ac4545;
+}
+.form {
+  position: fixed;
+  display: flex;
+  right: 200px;
+  background-color: #00a5a5;
+  border-radius: 10px;
+  padding: 15px;
+}

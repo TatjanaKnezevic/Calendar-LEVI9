@@ -4,8 +4,8 @@ const next = require("next");
 const bodyparser = require("body-parser");
 const fs = require("fs");
 
-const participants = require("./participantsBase.json");
-const events = require("./eventBase.json");
+//const participants = require("./participantsBase.json");
+//const events = require("./eventBase.json");
 
 mongoose.connect("mongodb://localhost:27017/calendar-js", {
   useNewUrlParser: true,
@@ -72,7 +72,8 @@ app.prepare().then(() => {
     // events.push(req.body);
     // res.json(req.body);
     // fs.writeFile("./eventBase.json", JSON.stringify(events), "utf8");
-    const ev = await eventBase.insertMany(req.body).exec();
+    const ev = await eventBase.create(req.body);
+    res.json(ev);
   });
 
   server.all("*", (req, res) => {

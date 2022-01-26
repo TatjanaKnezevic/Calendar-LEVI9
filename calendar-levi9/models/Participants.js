@@ -7,4 +7,4 @@ const ParticipantSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("partisipants", ParticipantSchema);
+module.exports = mongoose.model("participants", ParticipantSchema);

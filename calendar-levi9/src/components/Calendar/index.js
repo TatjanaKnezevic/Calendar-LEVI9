@@ -154,7 +154,7 @@ const Calendar = () => {
 
   useEffect(() => {
     async function getEvents() {
-      const res = await fetch("/events");
+      const res = await fetch("/event");
       const data = await res.json();
       setEvents([...data]);
     }

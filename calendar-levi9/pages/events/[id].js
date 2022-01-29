@@ -25,12 +25,12 @@ const Events = () => {
     return event_list;
   };
   const deleteEvent = async () => {
-    const res = await fetch("/deleteEvent", {
+    const res = await fetch("/event", {
       body: JSON.stringify({ id }),
       headers: {
         "Content-Type": "application/json",
       },
-      method: "POST",
+      method: "DELETE",
     });
     const result = await res.json();
 
